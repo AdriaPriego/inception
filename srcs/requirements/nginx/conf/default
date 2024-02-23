@@ -1,0 +1,17 @@
+:
+server {
+	listen 443 ssl;
+	listen [::]:443 ssl;
+	
+	root /usr/share/nginx/html;
+	index index.html index.html;
+	
+	ssl_certificate /etc/ssl/certs/nginx-selfsigned.cert;
+	ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+	ssl_protocols TLSv1.3;
+
+	server_name example.com www.example.com;
+	location /{
+		try_files $uri $uri/ =404;	
+	}
+}
