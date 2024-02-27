@@ -9,4 +9,4 @@ else
 	openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout $key_file -out $crt_file -subj "/C=ES/ST=Barcelona/L=Barcelona/O=42/CN=42";
 fi
 
-echo $@
+exec "$@"
