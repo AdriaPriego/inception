@@ -4,7 +4,13 @@ volumes:
  mariadb_data:
   driver: local
   driver_opts:
-   device: /home/inception/incep_clone/srcs/
+   device: /home/inception
+   o: bind
+   type: none
+ wordpress_data:
+  driver: local
+  driver_opts:
+   device: /home/inception
    o: bind
    type: none
 networks:
@@ -23,3 +29,16 @@ services:
   networks:
    - inception
   restart: always
+ wordpress:
+  container_name: wordpress
+  build: ./requirements/wordpress
+  image: wordpress
+  depends_on:
+   - mariadb
+  volumes:
+   - wordpress_data:/var/www/html
+  restart: always
+  networks:
+   - inception
+  env_file:
+   - .env
