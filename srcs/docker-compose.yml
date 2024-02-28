@@ -4,7 +4,7 @@ volumes:
  mariadb_data:
   driver: local
   driver_opts:
-   device: /home/inception/data/mysql
+   device: /home/inception/incep_clone/srcs/
    o: bind
    type: none
 networks:
