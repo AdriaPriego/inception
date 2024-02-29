@@ -7,7 +7,7 @@ COPY ./tools/ssl_cert_generator.sh /var/www
 
 RUN chmod +x /var/www/ssl_cert_generator.sh
 
-EXPOSE 443/tcp
+EXPOSE 443
 
 ENTRYPOINT [ "/var/www/ssl_cert_generator.sh" ]
 

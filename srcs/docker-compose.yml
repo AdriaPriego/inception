@@ -28,17 +28,32 @@ services:
    - .env
   networks:
    - inception
-  restart: always
+  restart: no
  wordpress:
   container_name: wordpress
-  build: ./requirements/wordpress
+  build:
+   context: ./requirements/wordpress/.
   image: wordpress
   depends_on:
    - mariadb
   volumes:
    - wordpress_data:/var/www/html
-  restart: always
+  restart: no
   networks:
    - inception
   env_file:
    - .env
+ nginx:
+  container_name: nginx
+  build:
+   context: ./requirements/nginx/.
+  image: nginx
+  depends_on:
+   - wordpress
+  ports:
+   - "443:443"
+  volumes:
+   - wordpress_data:/var/www/html
+  networks:
+   - inception
+  restart: no
