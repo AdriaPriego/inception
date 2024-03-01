@@ -1,59 +1,55 @@
-version: "3.5"
-
-volumes:
- mariadb_data:
-  driver: local
-  driver_opts:
-   device: /home/inception
-   o: bind
-   type: none
- wordpress_data:
-  driver: local
-  driver_opts:
-   device: /home/inception
-   o: bind
-   type: none
 networks:
   inception:
     name: inception
+    driver: bridge
 services:
- mariadb:
-  container_name: mariadb
-  build:
-   context: ./requirements/mariadb/.
-  image: mariadb
-  volumes:
-   - mariadb_data:/var/lib/mysql
-  env_file:
-   - .env
-  networks:
-   - inception
-  restart: no
- wordpress:
-  container_name: wordpress
-  build:
-   context: ./requirements/wordpress/.
-  image: wordpress
-  depends_on:
-   - mariadb
-  volumes:
-   - wordpress_data:/var/www/html
-  restart: no
-  networks:
-   - inception
-  env_file:
-   - .env
- nginx:
-  container_name: nginx
-  build:
-   context: ./requirements/nginx/.
-  image: nginx
-  depends_on:
-   - wordpress
-  ports:
-   - "443:443"
-  volumes:
-   - wordpress_data:/var/www/html
-  networks:
-   - inception
-  restart: no
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb/.
+    image: mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    env_file:
+      - .env
+    networks:
+      - inception
+    restart: no
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress/.
+    image: wordpress
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception
+    env_file:
+      - .env
+    restart: no
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/.
+    image: nginx
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception
+    restart: no
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      device: "/docker-volumes/mysql"
+      o: bind
+      type: none
+  wordpress_data:
+    driver: local
+    driver_opts:
+      device: "/docker-volumes/wordpress"
+      o: bind
+      type: none
