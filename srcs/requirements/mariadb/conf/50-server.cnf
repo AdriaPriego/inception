@@ -1,21 +1,20 @@
+[server]
+
 [mysqld]
 
 user                    = mysql
 port                    = 3306
-
 pid-file                = /run/mysqld/mysqld.pid
 socket                  = /run/mysqld/mysqld.sock
-
 basedir                 = /usr
 datadir                 = /var/lib/mysql
 tmpdir                  = /tmp
-
 bind-address            = 0.0.0.0
-
 querry_cache_limit    = 1M
 querry_cache_size     = 16M
-
 log_error             = /var/log/mysql/error.log
-
 character-set-server  = utf8mb4
 collation-server      = utf8mb4_general_ci
+
+[embedded]
+[mariadb]
