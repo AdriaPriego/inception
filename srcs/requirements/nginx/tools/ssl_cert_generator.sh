@@ -1,6 +1,6 @@
 #!/bin/bash
-key_file="/etc/ssl/private/nginx-selfsigned.key"
-crt_file="/etc/ssl/certs/nginx-selfsigned.cert"
+key_file="/etc/ssl/certs/nginx.key"
+crt_file="/etc/ssl/certs/nginx.cert"
 if [ -e $key_file ] && [ -e $crt_file ]; then
 	echo "Certificate alredy exist";
 else

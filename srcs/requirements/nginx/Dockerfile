@@ -2,12 +2,13 @@ FROM debian:11.9
 
 RUN apt-get -y update && apt-get -y install nginx openssl
 
-COPY ./conf/default /etc/nginx/default
+EXPOSE 443
+
+COPY ./conf/default /etc/nginx/conf.d/nginx.conf
 COPY ./tools/ssl_cert_generator.sh /var/www
 
-RUN chmod +x /var/www/ssl_cert_generator.sh
+RUN chmod 755 /var/www/ssl_cert_generator.sh
 
-EXPOSE 443
 
 ENTRYPOINT [ "/var/www/ssl_cert_generator.sh" ]
 
