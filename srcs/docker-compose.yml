@@ -15,7 +15,7 @@ services:
       - wordpress_data:/var/www/html
     networks:
       - inception
-    restart: no
+    restart: always
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/.
@@ -26,7 +26,7 @@ services:
       - .env
     networks:
       - inception
-    restart: no
+    restart: always
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress/.
@@ -39,7 +39,7 @@ services:
       - inception
     env_file:
       - .env
-    restart: no
+    restart: always
 volumes:
   mariadb_data:
     driver: local
